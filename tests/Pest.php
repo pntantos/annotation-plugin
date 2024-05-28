@@ -1,5 +1,5 @@
 <?php
 
-use VendorName\Skeleton\Tests\TestCase;
+use Steliosn1\Plugin\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);

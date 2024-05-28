@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Steliosn1\Plugin\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class PluginCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'plugin';
 
     public $description = 'My command';
 
