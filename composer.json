@@ -33,8 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Steliosn1\\Plugin\\": "src/",
-            "Steliosn1\\Plugin\\Database\\Factories\\": "database/factories/"
+            "Steliosn1\\Plugin\\": "src/"
         }
     },
     "autoload-dev": {
@@ -58,10 +57,7 @@
         "laravel": {
             "providers": [
                 "Steliosn1\\Plugin\\PluginServiceProvider"
-            ],
-            "aliases": {
-                "Plugin": "Steliosn1\\Plugin\\Facades\\Plugin"
-            }
+            ]
         }
     },
     "minimum-stability": "dev",
