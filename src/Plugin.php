@@ -80,68 +80,7 @@ class Plugin extends Field
         return $labels;
     }
 
-    public function getConfig(): string
-    {
-        $labelStrings = '';
-        foreach ($this->getLabels() as $label) {
-            $labelStrings .= "<Label value=\"{$label}\" background=\"{$this->genColorCodeFromText($label)}\"/>" . PHP_EOL;
-        }
 
-        $text = htmlspecialchars($this->getText());
-
-        return "<View>
-        <Labels name=\"label\" toName=\"text\">
-        {$labelStrings}
-        </Labels>
-        <Text name=\"text\" value=\"{$text}\"/>
-        </View>";
-    }
-
-    public function getInterfaces(): array
-    {
-        return [
-            'panel',
-            'update',
-            'submit',
-            'controls',
-            'side-column',
-            'annotations:menu',
-            'annotations:add-new',
-            'annotations:delete',
-            'predictions:menu',
-        ];
-    }
-
-    public function getUser()
-    {
-        $user = new stdClass();
-        $user->pk = 2;
-        $user->firstName = 'stelios';
-        $user->lastname = 'n';
-
-        return json_encode($user);
-    }
-
-    public function getTask()
-    {
-        $task = new stdClass();
-        // dd($this->getAnnotations());
-        $task->annotations = [];
-        $task->predictions = [
-            [
-                'model_version' => 'one',
-                'score' => 1,
-                'result' => $this->getAnnotations(),
-            ],
-        ];
-        // $task->load = false;
-        $task->id = 1;
-        $task->data = [
-            'text' => $this->getText(),
-        ];
-
-        return json_encode($task);
-    }
 
     public function genColorCodeFromText($text)
     {

@@ -4,6 +4,7 @@ namespace Steliosn1\Plugin;
 
 use Livewire\Livewire;
 use Filament\Support\Assets\AlpineComponent;
+use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Package;
@@ -27,6 +28,7 @@ class PluginServiceProvider extends PackageServiceProvider
         FilamentAsset::register(
             assets: [
                 AlpineComponent::make('plugin', __DIR__ . '/../resources/dist/plugin.js'),
+                // Css::make('plugincss', __DIR__ . '/../resources/dist/index.css'),
             ],
             package: 'steliosn1/plugin'
         );

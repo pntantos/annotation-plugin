@@ -1,0 +1,52 @@
+    .radio-label {
+        display: inline-block;
+        padding: 10px 10px;
+        border-radius: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+
+    .radio-label:hover {
+        opacity: 0.4;
+    }
+
+    .titlename {
+        display: inline-block;
+        padding: 8px 8px;
+        border-radius: 10px;
+    }
+
+    .titlename:focus {
+        border-color: orange;
+        border-width: 4px;
+    }
+
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: auto;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 5px;
+        white-space: nowrap;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+    .selected-label {
+        border-bottom: 2px solid orange;
+    }

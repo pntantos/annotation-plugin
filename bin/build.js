@@ -48,3 +48,8 @@ compile({
     entryPoints: ['./resources/js/index.js'],
     outfile: './resources/dist/plugin.js',
 })
+compile({
+    ...defaultOptions,
+    entryPoints: ['./resources/css/index.css'],
+    outfile: './resources/dist/index.css',
+})
