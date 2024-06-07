@@ -1,8 +1,15 @@
 export default function initializeDocument(args) {
+
+    // document.body.addEventListener('contextmenu', function (event) {
+    //     initializeDocument().removeSpan(event);
+    // });
+
     return {
         selectedLabel: {},
         labelList: new Map(),
-        init: function () {},
+        targetText: args.text,
+        elementId: args.elementId,
+        init: function () { },
         setSelectedLabel: function (label) {
             console.log(label)
             console.log(label.name)
@@ -64,31 +71,43 @@ export default function initializeDocument(args) {
                         label: this.selectedLabel.name,
                         color: this.selectedLabel.color,
                     })
+
                     console.log(this.labelList)
+                    // this.createSpan(selectedText);
+                    this.refreshTextField();
+
                 }
-                var newNode = document.createElement('span')
-                newNode.textContent = selectedText
-                newNode.style.color = this.selectedColor
-                newNode.classList.add('selected-label')
-                newNode.classList.add('tooltip')
-                var uuid = this.generateUUID()
-                newNode.dataset.uuid = uuid
-                var tooltipText = document.createElement('span')
-                tooltipText.textContent = this.selectedLabel
-                tooltipText.classList.add('tooltiptext')
-                newNode.appendChild(tooltipText)
-                range.deleteContents()
-                range.insertNode(newNode)
-                selection.removeAllRanges()
+
+
             }
         },
-        // updatedLabel: function () {
-        //     var self = this
-        //     window.updateLabel = function (label, color) {
-        //         self.selectedLabel = label
-        //         self.selectedColor = color
-        //     }
-        // },
+        refreshTextField: function () {
+            this.labelList.forEach(function (label) {
+                this.createSpan(label);
+            })
+
+
+        },
+        createSpan: function (label) {
+            var newNode = document.createElement('span')
+            newNode.textContent = label.text
+            newNode.classList.add('selected-label')
+            newNode.classList.add('tooltip')
+            newNode.style.borderBottomColor = label.color;
+            newNode.style.color = label.color;
+            var uuid = this.generateUUID()
+            newNode.dataset.uuid = uuid
+            var tooltipText = document.createElement('span')
+            tooltipText.textContent = label.name
+            tooltipText.classList.add('tooltiptext')
+            newNode.appendChild(tooltipText)
+            var range = document.createRange();
+            range.setStart(this.targetText, start);
+            range.setEnd(this.targetText, end);
+            range.deleteContents();
+            range.insertNode(newNode);
+        },
+
         generateUUID: function () {
             return 'xxx'.replace(/[xy]/g, function (c) {
                 var r = (Math.random() * 16) | 0
@@ -96,24 +115,23 @@ export default function initializeDocument(args) {
                 return v.toString(16)
             })
         },
-        // contextmenu: function () {
-        //     var self = this
-        //     document.addEventListener('contextmenu', function (event) {
-        //         var target = event.target
-        //         if (target.classList.contains('selected-label')) {
-        //             event.preventDefault()
-        //             var tooltip = target.querySelector('.tooltiptext')
-        //             var key = target.dataset.uuid
-        //             if (tooltip) {
-        //                 tooltip.remove()
-        //             }
-        //             target.style.color = ''
-        //             target.classList.remove('tooltip', 'selected-label')
-        //             self.labelList.delete(key)
-        //             var textNode = document.createTextNode(target.textContent)
-        //             target.parentNode.replaceChild(textNode, target)
+
+
+        // removeSpan: function (event) {
+        //     var target = event.target;
+        //     if (target.classList.contains('selected-label')) {
+        //         var tooltip = target.querySelector('.tooltiptext');
+        //         var key = target.dataset.uuid;
+        //         if (tooltip) {
+        //             tooltip.remove();
         //         }
-        //     })
+        //         target.style.color = '';
+        //         target.classList.remove('tooltip', 'selected-label');
+        //         this.labelList.delete(key);
+        //         var textNode = document.createTextNode(target.textContent);
+        //         target.parentNode.replaceChild(textNode, target);
+        //     }
         // },
+
     }
 }
