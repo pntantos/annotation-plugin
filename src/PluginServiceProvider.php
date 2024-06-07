@@ -18,7 +18,8 @@ class PluginServiceProvider extends PackageServiceProvider
     {
         $package->name(static::$name)
             ->hasViews()
-            ->hasTranslations();
+            ->hasTranslations()
+            ->hasAssets();
     }
 
     public function packageBooted(): void
@@ -28,7 +29,9 @@ class PluginServiceProvider extends PackageServiceProvider
         FilamentAsset::register(
             assets: [
                 AlpineComponent::make('plugin', __DIR__ . '/../resources/dist/plugin.js'),
-                // Css::make('plugincss', __DIR__ . '/../resources/dist/index.css'),
+                Css::make('index', __DIR__ . '/../resources/dist/index.css'),
+
+
             ],
             package: 'steliosn1/plugin'
         );
