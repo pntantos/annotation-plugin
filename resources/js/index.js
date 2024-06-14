@@ -1,137 +1,177 @@
+import { elements } from "chart.js";
+
 export default function initializeDocument(args) {
 
-    // document.body.addEventListener('contextmenu', function (event) {
-    //     initializeDocument().removeSpan(event);
-    // });
 
     return {
-        selectedLabel: {},
+
+        selectedLabel: {
+            name: null,
+            color: null,
+        },
         labelList: new Map(),
         targetText: args.text,
-        elementId: args.elementId,
-        init: function () { },
-        setSelectedLabel: function (label) {
-            console.log(label)
-            console.log(label.name)
-            this.selectedLabel = label
+        id: args.id,
+        annotations: args.annotations,
+        init: function () {
+
+            this.annotations.forEach(annotation => {
+                this.labelList.set(this.generateUUID(), {
+                    text: annotation.text,
+                    start: annotation.start,
+                    end: annotation.end,
+                    label: annotation.label,
+                    color: annotation.color,
+                });
+            });
+            document.addEventListener("contextmenu", this.removeLabel.bind(this));
         },
+
+        setSelectedLabel: function (label) {
+            this.selectedLabel = label;
+        },
+
         markText: function (event) {
-            var selection = window.getSelection()
-            var selectedText = selection.toString()
+            var element = document.getElementById(this.id);
+            var selection = element.ownerDocument.getSelection();
+
+            if (!this.selectedLabel || !this.selectedLabel.name) {
+                return;
+            }
+
+            if (selection.toString().length < 1) {
+                return;
+            }
+            var selectedText = selection.toString();
             if (selectedText !== '') {
-                var range = selection.getRangeAt(0)
-                while (
-                    /^\s/.test(
-                        range.startContainer.textContent[range.startOffset],
-                    )
-                ) {
-                    range.setStart(range.startContainer, range.startOffset + 1)
+                var range = selection.getRangeAt(0);
+                while (/^\s/.test(range.startContainer.textContent[range.startOffset])) {
+                    range.setStart(range.startContainer, range.startOffset + 1);
                 }
-                while (
-                    /\s$/.test(
-                        range.endContainer.textContent[range.endOffset - 1],
-                    )
-                ) {
-                    range.setEnd(range.endContainer, range.endOffset - 1)
+                while (/\s$/.test(range.endContainer.textContent[range.endOffset - 1])) {
+                    range.setEnd(range.endContainer, range.endOffset - 1);
                 }
-                var commonAncestor = range.commonAncestorContainer
+                var commonAncestor = range.commonAncestorContainer;
+                var offset = this.calculateOffset(selection.anchorNode.parentNode, selection.anchorNode);
+
+
                 var isWithinLabeledSpan =
                     commonAncestor.nodeType === Node.ELEMENT_NODE &&
-                    commonAncestor.classList.contains('selected-label')
-                var isPartiallyWithinLabeledSpan = false
-                if (range.startContainer !== range.endContainer) {
-                    var nodesInRange = document.createTreeWalker(
-                        range.commonAncestorContainer,
-                        NodeFilter.SHOW_ELEMENT,
-                        {
-                            acceptNode: function (node) {
-                                return node.classList &&
-                                    node.classList.contains('selected-label')
-                                    ? NodeFilter.FILTER_ACCEPT
-                                    : NodeFilter.FILTER_SKIP
-                            },
-                        },
-                    )
-                    var currentNode
-                    while ((currentNode = nodesInRange.nextNode())) {
-                        if (range.intersectsNode(currentNode)) {
-                            isPartiallyWithinLabeledSpan = true
-                            break
-                        }
-                    }
-                }
-                if (!isWithinLabeledSpan && !isPartiallyWithinLabeledSpan) {
-                    var start = range.startOffset
-                    var end = range.endOffset
-                    var key = this.generateUUID()
+                    commonAncestor.classList.contains('annotations-label');
+
+                if (!isWithinLabeledSpan) {
+                    console.log(this.selectedLabel);
+                    var start = offset + range.startOffset;
+                    var end = offset + range.endOffset;
+                    var key = this.generateUUID();
                     this.labelList.set(key, {
                         text: selectedText,
                         start: start,
                         end: end,
                         label: this.selectedLabel.name,
                         color: this.selectedLabel.color,
-                    })
-
-                    console.log(this.labelList)
-                    // this.createSpan(selectedText);
+                    });
                     this.refreshTextField();
-
                 }
-
 
             }
         },
-        refreshTextField: function () {
-            this.labelList.forEach(function (label) {
-                this.createSpan(label);
-            })
+        calculateOffset: function (parentNode, selectionNode) {
+            var totalLength = 0;
+            for (const child of parentNode.childNodes) {
+                console.log("offset: " + totalLength);
+                console.log("nodetype: " + child.nodeType);
+                if (child === selectionNode) {
+                    break;
+                }
 
+                if (child.nodeType === Node.ELEMENT_NODE) {
+                    console.log(child.textContent.length);
+                    for (const subChild of child.childNodes) {
+                        if (subChild.nodeType === Node.TEXT_NODE) {
+                            totalLength += subChild.textContent.length;
+                        }
+                    }
+
+                } else if (child.nodeType === Node.TEXT_NODE) {
+                    console.log(child.textContent.length);
+                    totalLength += child.textContent.length;
+                }
+            }
+            return totalLength;
 
         },
-        createSpan: function (label) {
-            var newNode = document.createElement('span')
-            newNode.textContent = label.text
-            newNode.classList.add('selected-label')
-            newNode.classList.add('tooltip')
+
+        refreshTextField: function () {
+            let resultHTML = '';
+            let currentIndex = 0;
+            // Convert the Map to an array of entries, then sort it based on the 'start' property
+            const sortedLabelList = [...this.labelList.entries()].sort((a, b) => a[1].start - b[1].start);
+            sortedLabelList.forEach(([key, label]) => {
+                if (currentIndex < label.start) {
+                    resultHTML += this.targetText.substring(currentIndex, label.start);
+                }
+                // Add the annotated text
+                resultHTML += this.createSpan(label, key);
+                // Move currentIndex past this annotation
+                currentIndex = label.end;
+            });
+            if (currentIndex < this.targetText.length) {
+                resultHTML += this.targetText.substring(currentIndex);
+            }
+            var element = document.getElementById(this.id);
+            element.innerHTML = resultHTML;
+        },
+
+        createSpan: function (label, key) {
+            // console.log(label);
+            var newNode = document.createElement('span');
+            newNode.classList.add(key);
+            newNode.classList.add('dynamic-span');
+            var selectedText = this.targetText.substring(label.start, label.end);
+            newNode.textContent = selectedText;
+            newNode.classList.add('annotations-label');
+            newNode.classList.add('tooltip');
             newNode.style.borderBottomColor = label.color;
             newNode.style.color = label.color;
-            var uuid = this.generateUUID()
-            newNode.dataset.uuid = uuid
-            var tooltipText = document.createElement('span')
-            tooltipText.textContent = label.name
-            tooltipText.classList.add('tooltiptext')
-            newNode.appendChild(tooltipText)
-            var range = document.createRange();
-            range.setStart(this.targetText, start);
-            range.setEnd(this.targetText, end);
-            range.deleteContents();
-            range.insertNode(newNode);
+            // var uuid = this.generateUUID();
+            // newNode.dataset.uuid = uuid;
+            var tooltipText = document.createElement('span');
+            tooltipText.textContent = label.label;
+            tooltipText.classList.add('tooltiptext');
+            newNode.appendChild(tooltipText);
+            // this.removeLabel(key);
+            newNode.addEventListener("contextmenu", (event) => {
+                event.preventDefault();
+                console.log(key);
+                this.labelList.delete(key);
+                this.refreshTextField();
+            });
+            return newNode.outerHTML;
         },
+        removeLabel: function (event) {
+            if (event.target.classList.contains('dynamic-span')) {
+                event.preventDefault();
+                const key = Array.from(event.target.classList).find(cls => this.labelList.has(cls));
+                if (key) {
+                    console.log(key);
+                    this.labelList.delete(key);
+                    this.refreshTextField();
+                }
+            }
+        },
+
 
         generateUUID: function () {
             return 'xxx'.replace(/[xy]/g, function (c) {
-                var r = (Math.random() * 16) | 0
-                var v = c === 'x' ? r : (r & 0x3) | 0x8
-                return v.toString(16)
-            })
+                var r = (Math.random() * 16) | 0;
+                var v = c === 'x' ? r : (r & 0x3) | 0x8;
+                return v.toString(16);
+            });
         },
-
-
-        // removeSpan: function (event) {
-        //     var target = event.target;
-        //     if (target.classList.contains('selected-label')) {
-        //         var tooltip = target.querySelector('.tooltiptext');
-        //         var key = target.dataset.uuid;
-        //         if (tooltip) {
-        //             tooltip.remove();
-        //         }
-        //         target.style.color = '';
-        //         target.classList.remove('tooltip', 'selected-label');
-        //         this.labelList.delete(key);
-        //         var textNode = document.createTextNode(target.textContent);
-        //         target.parentNode.replaceChild(textNode, target);
-        //     }
-        // },
-
-    }
+    };
 }
+
+
+
+

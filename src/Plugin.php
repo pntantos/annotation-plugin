@@ -2,9 +2,14 @@
 
 namespace Steliosn1\Plugin;
 
+use App\Clients\Doccano\DTOs\AnnotationDTO;
+use App\Models\Label;
 use Closure;
 use Filament\Forms\Components\Field;
 use stdClass;
+use App\Casts\Pattern;
+use App\ValueObjects\Pattern as ValueObjectsPattern;
+use GuzzleHttp\Psr7\Request;
 
 class Plugin extends Field
 {
@@ -54,6 +59,42 @@ class Plugin extends Field
     {
         return $this->evaluate($this->annotations);
     }
+
+
+    public function getViewAnnotations(): ?array
+    {
+        $annotations = [];
+
+        foreach ($this->getAnnotations() as $annotation) {
+            // dd($annotation);
+            $annotation = $annotation->toArray();
+            $annotations[] = [
+                'label' => $annotation['label'],
+                'start' => $annotation['start'],
+                'end' => $annotation['end'],
+                'text' => $annotation['pattern'],
+                'color' => ucwords($this->genColorCodeFromText($annotation['label'])),
+            ];
+        }
+
+        return $annotations;
+    }
+    public function saveDataToDatabase()
+    {
+        $annotations = $this->getState();
+
+        foreach ($annotations as $annotationData) {
+            $annotation = new ValueObjectsPattern('label', 'start', 'end', 'text');
+            $annotation->label = $annotationData['label'];
+            $annotation->start = $annotationData['start'];
+            $annotation->end = $annotationData['end'];
+            $annotation->pattern = $annotationData['text'];
+            // $annotation->save();
+        }
+
+        return redirect()->withSuccess('success');
+    }
+
 
     public function setText(string|Closure $text): static
     {
