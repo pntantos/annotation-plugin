@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "pntantos\\plugin\\": "src/"
+            "pntantos\\annotation-plugin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "pntantos\\plugin\\Tests\\": "tests/"
+            "pntantos\\annotation-plugin\\Tests\\": "tests/"
         }
     },
     "scripts": {

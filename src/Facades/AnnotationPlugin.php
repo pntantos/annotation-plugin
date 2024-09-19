@@ -1,6 +1,6 @@
 <?php
 
-namespace Pntantos\Plugin\Facades;
+namespace Pntantos\AnnotationPlugin\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -11,6 +11,6 @@ class AnnotationPlugin extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Pntantos\AnnotationPlugin\Plugin::class;
+        return \Pntantos\AnnotationPlugin\AnnotationPlugin::class;
     }
 }
