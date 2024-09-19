@@ -10,7 +10,7 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 use Pntantos\AnnotationPlugin\Plugin;
 
-class PluginServiceProvider extends PackageServiceProvider
+class AnnotationPluginServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'plugin';
 
@@ -33,7 +33,7 @@ class PluginServiceProvider extends PackageServiceProvider
 
 
             ],
-            package: 'steliosn1/plugin'
+            package: 'pntantos/plugin'
         );
     }
 }

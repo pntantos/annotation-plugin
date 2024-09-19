@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) steliosn1 <steliosn1@users.noreply.github.com>
+Copyright (c) Polykarpos Ntantos Omikron44 <polykarpos@o44.gr>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

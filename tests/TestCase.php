@@ -15,8 +15,8 @@ use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Pntantos\AnnotationPlugin\AnnotationPluginServiceProvider;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use Pntantos\AnnotationPlugin\PluginServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -25,7 +25,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn(string $modelName) => 'Steliosn1\\Plugin\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn(string $modelName) => 'Pntantos\\AnnotationPlugin\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -44,7 +44,7 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
-            PluginServiceProvider::class,
+            AnnotationPluginServiceProvider::class,
         ];
     }
 
