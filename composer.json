@@ -56,7 +56,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "pntantos\\AnnotationPlugin\\AnnotationPluginServiceProvider"
+                "Pntantos\\AnnotationPlugin\\AnnotationPluginServiceProvider"
             ]
         }
     },
