@@ -8,11 +8,11 @@ use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Package;
-use Pntantos\AnnotationPlugin\Plugin;
+use Pntantos\AnnotationPlugin\AnnotationPlugin;
 
 class AnnotationPluginServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'plugin';
+    public static string $name = 'annotation-plugin';
 
     public function configurePackage(Package $package): void
     {
@@ -24,7 +24,7 @@ class AnnotationPluginServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        Livewire::component('plugin', Plugin::class);
+        Livewire::component('annotation-plugin', AnnotationPlugin::class);
 
         FilamentAsset::register(
             assets: [

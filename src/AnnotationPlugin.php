@@ -2,13 +2,9 @@
 
 namespace Pntantos\AnnotationPlugin;
 
-use App\Clients\Doccano\DTOs\AnnotationDTO;
-use App\Models\Label;
 use Closure;
 use Filament\Forms\Components\Field;
 use stdClass;
-use App\Casts\Pattern;
-use App\ValueObjects\Pattern as ValueObjectsPattern;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
