@@ -2,6 +2,10 @@
 
 All notable changes to `plugin` will be documented in this file.
 
+## v1.0.3.1 - 2024-09-19
+
+**Full Changelog**: https://github.com/pntantos/annotation-plugin/compare/v1.0.3...v1.0.3.1
+
 ## v1.0.3 - 2024-09-19
 
 **Full Changelog**: https://github.com/pntantos/annotation-plugin/compare/v1.0.2...v1.0.3
