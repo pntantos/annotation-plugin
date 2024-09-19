@@ -1,21 +1,21 @@
 {
-    "name": "steliosn1/plugin",
-    "description": "This is my package plugin",
+    "name": "pntantos/annotation-plugin",
+    "description": "This is my package annotation-plugin",
     "keywords": [
-        "steliosn1",
+        "pntantos",
         "laravel",
-        "plugin"
+        "annotation-plugin"
     ],
-    "homepage": "https://github.com/steliosn1/plugin",
+    "homepage": "https://github.com/pntantos/annotation-plugin",
     "support": {
-        "issues": "https://github.com/steliosn1/plugin/issues",
-        "source": "https://github.com/steliosn1/plugin"
+        "issues": "https://github.com/pntantos/annotation-plugin/issues",
+        "source": "https://github.com/pntantos/annotation-plugin"
     },
     "license": "MIT",
     "authors": [
         {
-            "name": "steliosn1",
-            "email": "steliosn1@users.noreply.github.com",
+            "name": "pntantos",
+            "email": "pntantos@users.noreply.github.com",
             "role": "Developer"
         }
     ],
@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Steliosn1\\Plugin\\": "src/"
+            "pntantos\\plugin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Steliosn1\\Plugin\\Tests\\": "tests/"
+            "pntantos\\plugin\\Tests\\": "tests/"
         }
     },
     "scripts": {
@@ -56,7 +56,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Steliosn1\\Plugin\\PluginServiceProvider"
+                "pntantos\\AnnotationPlugin\\AnnotationPluginServiceProvider"
             ]
         }
     },

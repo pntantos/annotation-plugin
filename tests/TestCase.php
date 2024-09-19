@@ -1,6 +1,6 @@
 <?php
 
-namespace Steliosn1\Plugin\Tests;
+namespace Pntantos\AnnotationPlugin\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use Steliosn1\Plugin\PluginServiceProvider;
+use Pntantos\AnnotationPlugin\PluginServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -25,7 +25,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Steliosn1\\Plugin\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn(string $modelName) => 'Steliosn1\\Plugin\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 

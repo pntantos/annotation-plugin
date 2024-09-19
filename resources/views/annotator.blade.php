@@ -1,17 +1,17 @@
 @php
-    $id = $getId();
-    $isDisabled = $isDisabled();
-    $name = $getName();
-    $text = $getText();
-    $labels = $getViewLabels();
-    $annotations = $getViewAnnotations();
-    $state = $getState();
+$id = $getId();
+$isDisabled = $isDisabled();
+$name = $getName();
+$text = $getText();
+$labels = $getViewLabels();
+$annotations = $getViewAnnotations();
+$state = $getState();
 @endphp
 <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.18.0/js/md5.min.js"></script>
 
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     <div x-id="['labelTextField']" x-ignore ax-load
-        ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('plugin', 'steliosn1/plugin') }}"
+        ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('annotation-plugin', 'pntantos/annotation-plugin') }}"
         x-data="initializeDocument({
             annotations: @js($annotations),
             id: $id('labelTextField'),

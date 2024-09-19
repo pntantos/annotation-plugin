@@ -1,6 +1,6 @@
 <?php
 
-namespace Steliosn1\Plugin;
+namespace Pntantos\AnnotationPlugin;
 
 use App\Clients\Doccano\DTOs\AnnotationDTO;
 use App\Models\Label;
@@ -13,9 +13,9 @@ use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
-class Plugin extends Field
+class AnnotationPlugin extends Field
 {
-    protected string $view = 'plugin::plugin';
+    protected string $view = 'annotation-plugin::annotator';
 
     protected array|Closure $labels = [];
 

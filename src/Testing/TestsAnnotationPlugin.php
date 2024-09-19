@@ -1,6 +1,6 @@
 <?php
 
-namespace Steliosn1\Plugin\Testing;
+namespace Pntantos\AnnotationPlugin\Testing;
 
 use Livewire\Features\SupportTesting\Testable;
 

@@ -46,7 +46,7 @@ return [
 ## Usage
 
 ```php
-$plugin = new Steliosn1\Plugin();
+$plugin = new Pntantos\AnnotationPlugin();
 echo $plugin->echoPhrase('Hello, Steliosn1!');
 ```
 

@@ -1,6 +1,6 @@
 <?php
 
-// translations for Steliosn1/Plugin
+// translations for Pntantos/AnnotationPlugin
 return [
     //
 ];

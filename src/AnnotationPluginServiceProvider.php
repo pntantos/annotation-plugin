@@ -1,6 +1,6 @@
 <?php
 
-namespace Steliosn1\Plugin;
+namespace Pntantos\AnnotationPlugin;
 
 use Livewire\Livewire;
 use Filament\Support\Assets\AlpineComponent;
@@ -8,7 +8,7 @@ use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Package;
-use steliosn1\Plugin\Plugin;
+use Pntantos\AnnotationPlugin\Plugin;
 
 class PluginServiceProvider extends PackageServiceProvider
 {
@@ -28,7 +28,7 @@ class PluginServiceProvider extends PackageServiceProvider
 
         FilamentAsset::register(
             assets: [
-                AlpineComponent::make('plugin', __DIR__ . '/../resources/dist/plugin.js'),
+                AlpineComponent::make('annotation-plugin', __DIR__ . '/../resources/dist/annotation-plugin.js'),
                 Css::make('index', __DIR__ . '/../resources/dist/index.css'),
 
 
