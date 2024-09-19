@@ -2,6 +2,10 @@
 
 All notable changes to `plugin` will be documented in this file.
 
+## v1.0.0 - 2024-09-19
+
+**Full Changelog**: https://github.com/pntantos/annotation-plugin/commits/v1.0.0
+
 ## Beta - 2024-09-19
 
 **Full Changelog**: https://github.com/pntantos/annotation-plugin/commits/Beta
