@@ -14,7 +14,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "pntantos",
+            "name": "Polykarpos Ntantos (Omikron44)",
             "email": "pntantos@users.noreply.github.com",
             "role": "Developer"
         }
@@ -33,12 +33,12 @@
     },
     "autoload": {
         "psr-4": {
-            "pntantos\\annotation-plugin\\": "src/"
+            "Pntantos\\AnnotationPlugin\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "pntantos\\annotation-plugin\\Tests\\": "tests/"
+            "Pntantos\\AnnotationPlugin\\Tests\\": "tests/"
         }
     },
     "scripts": {
