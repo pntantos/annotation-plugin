@@ -29,7 +29,7 @@ class AnnotationPluginServiceProvider extends PackageServiceProvider
         FilamentAsset::register(
             assets: [
                 AlpineComponent::make('annotation-plugin', __DIR__ . '/../resources/dist/annotation-plugin.js'),
-                Css::make('index', __DIR__ . '/../resources/dist/index.css'),
+                Css::make('index', __DIR__ . '/../resources/dist/annotation-plugin.css'),
 
 
             ],
