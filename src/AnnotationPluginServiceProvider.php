@@ -30,10 +30,8 @@ class AnnotationPluginServiceProvider extends PackageServiceProvider
             assets: [
                 AlpineComponent::make('annotation-plugin', __DIR__ . '/../resources/dist/annotation-plugin.js'),
                 Css::make('index', __DIR__ . '/../resources/dist/annotation-plugin.css'),
-
-
             ],
-            package: 'pntantos/plugin'
+            package: 'pntantos/annotation-plugin'
         );
     }
 }
